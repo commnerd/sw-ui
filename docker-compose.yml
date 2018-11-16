@@ -1,0 +1,9 @@
+version: "3"
+services:
+  build:
+    context: .
+  image: workspace
+  restart: always
+  volumes:
+    - ~/:/home/commnerd
+    - /var/run/docker.sock
