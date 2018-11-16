@@ -7,6 +7,7 @@ RUN apt-get upgrade -y
 RUN apt-get install -y apt-utils software-properties-common
 
 RUN apt-get install -y \
+  locales \
   sudo \
   tmux \
   net-tools \
