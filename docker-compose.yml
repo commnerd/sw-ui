@@ -4,7 +4,6 @@ services:
     build:
       context: .
     image: commnerd/workspace
-    name: workspace
     restart: always
     ports:
       - 80:80
