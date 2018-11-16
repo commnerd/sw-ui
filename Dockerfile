@@ -25,6 +25,7 @@ RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
   apt-get update && \
   apt-get install -y --allow-unauthenticated docker-ce docker-compose && \
+  if [ ! -d /etc/docker ]; then mkdir /etc/docker; done && \
   echo '{ "experimental": true }' > /etc/docker/daemon.js
 
 RUN useradd -mu1000 -Groot,sudo,docker commnerd 
