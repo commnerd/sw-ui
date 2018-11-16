@@ -1,0 +1,13 @@
+version: "3"
+services:
+  default:
+    build:
+      context: .
+    image: commnerd/workspace
+    name: workspace
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ~/.ssh:/home/commnerd/.ssh
+      - ~/Workspace:/home/commnerd/Workspace
