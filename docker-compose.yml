@@ -5,6 +5,7 @@ services:
       context: .
     image: commnerd/workspace
     restart: always
+    privileged: true
     ports:
       - 80:80
     volumes:
