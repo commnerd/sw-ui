@@ -8,7 +8,7 @@ RUN apt-get install -y apt-utils software-properties-common
 
 RUN apt-get install -y \
   supervisor \
-  locales \
+  locales-all \
   sudo \
   tmux \
   net-tools \
@@ -21,23 +21,18 @@ RUN apt-get install -y \
 
 RUN sed -i 's/^%.*ALL=(ALL:ALL) ALL/%sudo   ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 
-RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
-    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
-    echo "LANG=en_US.UTF-8" > /etc/locale.conf && \
-    locale-gen en_US.UTF-8
-
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
   apt-get update && \
   apt-get install -y --allow-unauthenticated docker-ce docker-compose && \
   if [ ! -d /etc/docker ]; then mkdir /etc/docker; fi && \
   echo '{ "experimental": true }' > /etc/docker/daemon.js
 
-RUN useradd -mu1000 -Groot,sudo,docker commnerd 
+RUN useradd -mu1000 -Groot,sudo commnerd 
 
-USER commnerd
-
-WORKDIR /home/commnerd
+VOLUME ["/home/commnerd/Workspace", "/home/commnerd/.ssh"]
 
 RUN git config --global user.name "Michael J. Miller" && git config --global user.email "commnerd@gmail.com" 
 
-CMD ["sudo /usr/bin/dockerd"]
+ADD configs/supervisor/conf.d/dockerd.conf /etc/supervisor/conf.d
+
+CMD ["supervisord"]
