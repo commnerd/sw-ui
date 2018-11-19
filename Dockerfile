@@ -27,7 +27,7 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
   if [ ! -d /etc/docker ]; then mkdir /etc/docker; fi && \
   echo '{ "experimental": true }' > /etc/docker/daemon.js
 
-RUN useradd -mu1000 -Groot,sudo commnerd 
+RUN useradd -mu1000 -Groot,sudo,docker commnerd 
 
 VOLUME ["/home/commnerd/Workspace", "/home/commnerd/.ssh"]
 
