@@ -31,8 +31,10 @@ RUN useradd -mu1000 -Groot,sudo,docker commnerd
 
 VOLUME ["/home/commnerd/Workspace", "/home/commnerd/.ssh"]
 
-RUN git config --global user.name "Michael J. Miller" && git config --global user.email "commnerd@gmail.com" 
+RUN su -u commnerd git config --global user.name "Michael J. Miller" && git config --global user.email "commnerd@gmail.com" 
 
 ADD configs/supervisor/conf.d/dockerd.conf /etc/supervisor/conf.d
+
+EXPOSE 80
 
 CMD ["supervisord"]
