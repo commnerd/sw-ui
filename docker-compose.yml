@@ -9,5 +9,5 @@ services:
     ports:
       - 80:80
     volumes:
-      - ~/.ssh:/home/commnerd/.ssh
+      - ~/.ssh:/root/.ssh
       - ~/Workspace:/home/commnerd/Workspace

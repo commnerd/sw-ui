@@ -28,9 +28,16 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
   if [ ! -d /etc/docker ]; then mkdir /etc/docker; fi && \
   echo '{ "experimental": true }' > /etc/docker/daemon.js
 
-RUN useradd -mu1000 -Groot,sudo,docker commnerd 
+RUN useradd -mu1000 -Groot,sudo,docker commnerd && \
+    echo "if [ ! -d /home/commnerd/.ssh ]" >> /home/commnerd/.bashrc && \
+    echo "then" >> /home/commnerd/.bashrc && \
+    echo "  sudo cp -fR /root/.ssh /home/commnerd" >> /home/commnerd/.bashrc && \
+    echo "fi" >> /home/commnerd/.bashrc && \
+    echo "sudo chown -fR commnerd:commnerd /home/commnerd/.ssh" >> /home/commnerd/.bashrc && \
+    echo "sudo chmod 400 /home/commnerd/.ssh/*" >> /home/commnerd/.bashrc && \
+    echo "alias mike='ssh ubuntu@michaeljmiller.net'" >> /home/commnerd/.bashrc
 
-VOLUME ["/home/commnerd/Workspace", "/home/commnerd/.ssh"]
+VOLUME ["/home/commnerd/Workspace", "/root/.ssh"]
 
 RUN sudo -u commnerd git config --global user.name "Michael J. Miller" && sudo -u commnerd git config --global user.email "commnerd@gmail.com"
 
