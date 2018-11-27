@@ -37,4 +37,4 @@ ADD configs/supervisor/conf.d/dockerd.conf /etc/supervisor/conf.d
 
 EXPOSE 80
 
-CMD ["supervisord"]
+CMD ["supervisord", "-nc", "/etc/supervisor/supervisord.conf"]
