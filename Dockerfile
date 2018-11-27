@@ -8,6 +8,7 @@ RUN apt-get install -y apt-utils software-properties-common
 
 RUN apt-get install -y \
   supervisor \
+  nginx \
   locales-all \
   sudo \
   tmux \
