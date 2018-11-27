@@ -1,9 +1,8 @@
 # docker-workspace
 A consistent Debian-based workspace setup for me using docker
 
-## Run the following to bring up the environment
-`docker run -it --rm --name workspace -v ~/:/home/commnerd -v /var/run/docker.sock commnerd/workspace bash`
-You can add this command to your bashrc and things should work great.
+## Run the following to bring up the workspace environment
+`docker run -d --restart always --privileged -v ~/Workspace:/home/commnerd/workspace -v ~/.ssh:/root/.ssh -p 80:80 --name workspace commnerd/workspace`
 
 or
 
@@ -20,8 +19,6 @@ or
 `./build.sh`
 
 
-The 'run.sh' command calls the docker command above as-is.  If you need customization, please craft the 'docker run' command yourself.
+## It is suggested you add the following command to the end of your .bashrc file to connect to the container and change into the home directory
 
-#!/bin/bash
-
-docker build -t commnerd/workspace .
+`docker exec -it -u commnerd workspace bash -c 'cd ~; exec "bash"'`
