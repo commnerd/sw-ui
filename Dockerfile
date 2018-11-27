@@ -41,7 +41,7 @@ VOLUME ["/home/commnerd/Workspace", "/root/.ssh"]
 
 RUN sudo -u commnerd git config --global user.name "Michael J. Miller" && sudo -u commnerd git config --global user.email "commnerd@gmail.com"
 
-ADD configs/supervisor/conf.d/dockerd.conf /etc/supervisor/conf.d
+ADD configs/supervisor/conf.d/* /etc/supervisor/conf.d/
 
 EXPOSE 80
 
