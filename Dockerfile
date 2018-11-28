@@ -18,13 +18,13 @@ RUN apt-get install -y \
   ca-certificates \
   curl \
   gnupg2 \
-  software-properties-common \
-  snapd
+  software-properties-common
 
-RUN snap install node --classic --channel=9/stable
+RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 
-RUN npm i -g n yarn && \
-    n latest
+RUN apt-get install -y nodejs
+
+RUN npm i -g yarn n && n latest
 
 RUN sed -i 's/^%.*ALL=(ALL:ALL) ALL/%sudo   ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 
