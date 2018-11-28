@@ -9,6 +9,8 @@ RUN apt-get install -y apt-utils software-properties-common
 RUN apt-get install -y \
   supervisor \
   nginx \
+  sqlite3 \
+  php-sqlite3 \
   locales-all \
   sudo \
   tmux \
