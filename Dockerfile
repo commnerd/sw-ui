@@ -40,7 +40,7 @@ RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker commnerd && \
     echo "  sudo cp -fR /root/.ssh /home/commnerd" >> /home/commnerd/.bashrc && \
     echo "fi" >> /home/commnerd/.bashrc && \
     echo "sudo chown -fR commnerd:commnerd /home/commnerd/.ssh" >> /home/commnerd/.bashrc && \
-    echo "sudo chmod 400 /home/commnerd/.ssh/*" >> /home/commnerd/.bashrc && \
+    echo "sudo chmod 400 /home/commnerd/.ssh/*sa" >> /home/commnerd/.bashrc && \
     echo "alias mike='ssh ubuntu@michaeljmiller.net'" >> /home/commnerd/.bashrc
 
 VOLUME ["/home/commnerd/Workspace", "/root/.ssh"]
