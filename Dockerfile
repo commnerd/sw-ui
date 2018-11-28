@@ -34,7 +34,7 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
   if [ ! -d /etc/docker ]; then mkdir /etc/docker; fi && \
   echo '{ "experimental": true }' > /etc/docker/daemon.js
 
-RUN useradd -mu1000 -Groot,sudo,docker commnerd && \
+RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker commnerd && \
     echo "if [ ! -d /home/commnerd/.ssh ]" >> /home/commnerd/.bashrc && \
     echo "then" >> /home/commnerd/.bashrc && \
     echo "  sudo cp -fR /root/.ssh /home/commnerd" >> /home/commnerd/.bashrc && \
