@@ -1,3 +1,0 @@
-FROM commnerd/workspace:latest
-
-ADD configs/supervisor/conf.d/* /etc/supervisor/conf.d/

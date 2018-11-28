@@ -21,4 +21,8 @@ or
 
 ## It is suggested you add the following command to the end of your .bashrc file to connect to the container and change into the home directory
 
-`docker exec -it -u commnerd workspace bash -c 'cd ~; exec "bash"'`
+`docker exec -it --workdir /home/commnerd -u commnerd workspace bash`
+
+or
+
+`./connect.sh`

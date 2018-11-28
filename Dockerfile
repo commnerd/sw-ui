@@ -18,7 +18,13 @@ RUN apt-get install -y \
   ca-certificates \
   curl \
   gnupg2 \
-  software-properties-common
+  software-properties-common \
+  snapd
+
+RUN snap install node --classic --channel=9/stable
+
+RUN npm i -g n yarn && \
+    n latest
 
 RUN sed -i 's/^%.*ALL=(ALL:ALL) ALL/%sudo   ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 
@@ -43,6 +49,6 @@ RUN sudo -u commnerd git config --global user.name "Michael J. Miller" && sudo -
 
 ADD configs/supervisor/conf.d/* /etc/supervisor/conf.d/
 
-EXPOSE 80
+EXPOSE 80 9000
 
 CMD ["supervisord", "-nc", "/etc/supervisor/supervisord.conf"]
