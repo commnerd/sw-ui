@@ -2,7 +2,7 @@
 A consistent Debian-based workspace setup for me using docker
 
 ## Run the following to bring up the workspace environment
-`docker run -d --restart always --privileged -v ~/Workspace:/home/commnerd/workspace -v ~/.ssh:/root/.ssh -p 80:80 --name workspace commnerd/workspace`
+`docker run -d --restart always --privileged -v ~/Workspace:/home/commnerd/workspace -v ~/.ssh:/root/.ssh -p 80:80 -p 9000:9000 --name workspace commnerd/workspace`
 
 or
 
