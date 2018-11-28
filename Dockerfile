@@ -18,6 +18,7 @@ RUN apt-get install -y \
   ca-certificates \
   curl \
   gnupg2 \
+  phpunit \
   software-properties-common
 
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
@@ -33,6 +34,10 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
   apt-get install -y --allow-unauthenticated docker-ce docker-compose && \
   if [ ! -d /etc/docker ]; then mkdir /etc/docker; fi && \
   echo '{ "experimental": true }' > /etc/docker/daemon.js
+
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');"
 
 RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker commnerd && \
     echo "if [ ! -d /home/commnerd/.ssh ]" >> /home/commnerd/.bashrc && \
