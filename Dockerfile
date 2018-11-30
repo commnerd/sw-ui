@@ -21,7 +21,8 @@ RUN apt-get install -y \
   curl \
   gnupg2 \
   phpunit \
-  software-properties-common
+  software-properties-common \
+  openssh-server
 
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
 
@@ -41,7 +42,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
     php composer-setup.php && \
     php -r "unlink('composer-setup.php');"
 
-RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker commnerd && \
+RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker -p '$1$ohKHD8s/$uWgvbSJCBL7I.Pm.k.RUA/' commnerd && \
     echo "if [ ! -d /home/commnerd/.ssh ]" >> /home/commnerd/.bashrc && \
     echo "then" >> /home/commnerd/.bashrc && \
     echo "  sudo cp -fR /root/.ssh /home/commnerd" >> /home/commnerd/.bashrc && \
