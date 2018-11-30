@@ -51,6 +51,8 @@ RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker -p '$1$ohKHD8s/$uWgvbSJCBL7I
     echo "sudo chmod 400 /home/commnerd/.ssh/*sa" >> /home/commnerd/.bashrc && \
     echo "alias mike='ssh ubuntu@michaeljmiller.net'" >> /home/commnerd/.bashrc
 
+RUN mkdir /run/sshd
+
 VOLUME ["/home/commnerd/Workspace", "/root/.ssh", "/var/lib/docker"]
 
 RUN sudo -u commnerd git config --global user.name "Michael J. Miller" && sudo -u commnerd git config --global user.email "commnerd@gmail.com"
