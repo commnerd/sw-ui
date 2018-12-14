@@ -39,7 +39,7 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
   echo '{ "experimental": true }' > /etc/docker/daemon.js
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-    php composer-setup.php && \
+    php composer-setup.php  --install-dir=/bin --filename=composer && \
     php -r "unlink('composer-setup.php');"
 
 RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker -p '$1$ohKHD8s/$uWgvbSJCBL7I.Pm.k.RUA/' commnerd && \
