@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core'
 import { Terminal } from 'xterm'
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'app-terminal',
   templateUrl: './terminal.component.html',
   styleUrls: ['./terminal.component.scss']
 })
 export class TerminalComponent implements OnInit {
 
-  term: Terminal = null;
+  @ViewChild('terminal') terminal: ElementRef
+  term: Terminal = new Terminal()
 
   constructor() { }
 
   ngOnInit() {
-      let term = new Terminal()
-      console.log(this.terminal)
-      term.open(this.terminal)
-      term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+      this.term.open(this.terminal.nativeElement)
+      this.term.writeln('Welcome to xterm.js')
   }
 
 }
