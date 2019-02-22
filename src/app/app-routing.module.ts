@@ -10,8 +10,8 @@ import { AuthGuard } from './middlewares/auth.guard'
 
 const routes: Routes = [
 	{path: '', component: LoginComponent, canActivate:[UnAuthGuard]},
-	{path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-	{path: 'term', component: TerminalComponent, canActivate:[AuthGuard]},
+	{path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data: {label: 'Dashboard'}},
+	{path: 'term', component: TerminalComponent, canActivate:[AuthGuard], data: {label: 'Terminal'}},
 ];
 
 @NgModule({

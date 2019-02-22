@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment'
+import { Injectable } from '@angular/core'
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
   constructor() { }
 
   isAuthenticated(): boolean {
-      return this._isAuthenticated
+      return this._isAuthenticated || !environment.production
   }
 
   authenticate(email: string, password: string) {

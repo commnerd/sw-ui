@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core'
+import { environment } from '../../environments/environment'
 import { Terminal } from 'xterm'
+import { attach } from 'xterm/lib/addons/attach/attach'
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -10,13 +12,16 @@ import { Terminal } from 'xterm'
 export class TerminalComponent implements OnInit {
 
   @ViewChild('terminal') terminal: ElementRef
-  term: Terminal = new Terminal()
+  term: Terminal
 
   constructor() { }
 
   ngOnInit() {
+      this.term = new Terminal()
+      // let ws = new WebSocket('wss://localhost:4200/test/websocket')
+      // attach(this.term, ws, true, true)
       this.term.open(this.terminal.nativeElement)
-      this.term.writeln('Welcome to xterm.js')
+
   }
 
 }
