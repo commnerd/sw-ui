@@ -5,6 +5,6 @@
           <option>--Please select an image--</option>
           <option value="debian">Debian</option>
       </select>
-      <small id="imageHelp" class="form-text text-muted">Please select an image.</small>
+      <small *ngIf="image == null" id="imageHelp" class="form-text text-muted">Please select an image.</small>
     </div>
 </app-main>
