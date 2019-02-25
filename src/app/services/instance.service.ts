@@ -12,11 +12,11 @@ export class InstanceService {
 
   constructor(private _http: HttpClient) { }
 
-  get(): Observable<{}> {
+  get(): Observable<Object> {
        return this._http.get('http://localhost:8000/api/v1/instances')
   }
 
-  create(): Observable<{}> {
+  create(): Observable<Object> {
       return this._http.post('http://localhost:8000/api/v1/instances/create', {
           user: 5
       })

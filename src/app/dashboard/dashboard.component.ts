@@ -17,9 +17,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
       this._instanceService.get().subscribe(
-          instance => {
+          (instance: Instance) => {
               this.instance = instance
-              console.log(instance)
           }
       )
   }

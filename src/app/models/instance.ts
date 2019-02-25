@@ -1,5 +1,5 @@
-class Instance
+export class Instance
 {
-    id: integer
+    id: number
     name: string
 }
