@@ -23,4 +23,12 @@ export class DashboardComponent implements OnInit {
       )
   }
 
+  requestImage() {
+      this._instanceService.create().subscribe(
+          (instance: Instance) => {
+              this.instance = instance
+          }
+      )
+  }
+
 }

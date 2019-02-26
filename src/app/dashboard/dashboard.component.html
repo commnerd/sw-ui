@@ -1,7 +1,7 @@
 <app-main>
     <div class="form-group">
       <label for="image">Image</label>
-      <select class="form-control" id="image" aria-describedby="imageHelp" [formControl]="image">
+      <select class="form-control" id="image" aria-describedby="imageHelp" [formControl]="image" (change)="requestImage()">
           <option>--Please select an image--</option>
           <option value="debian">Debian</option>
       </select>
