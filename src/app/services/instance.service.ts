@@ -16,9 +16,9 @@ export class InstanceService {
        return this._http.get('http://localhost:8000/api/v1/instances')
   }
 
-  create(): Observable<Object> {
+  create(image: string): Observable<Object> {
       return this._http.post('http://localhost:8000/api/v1/instances/create', {
-          user: 5
+          image: image
       })
   }
 }
