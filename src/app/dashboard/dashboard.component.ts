@@ -12,6 +12,7 @@ import { Instance } from '../models/instance'
 export class DashboardComponent implements OnInit {
   imageSelect = new FormControl('')
   imageText = new FormControl('')
+  mountPoint = new FormControl('')
 
   instance: Instance = null
   images: Object
@@ -51,6 +52,10 @@ export class DashboardComponent implements OnInit {
           this.imageSelect.setValue(image)
           this.imageText.setValue("")
       }
+  }
+
+  hasImage(): bool {
+      return true;
   }
 
 }

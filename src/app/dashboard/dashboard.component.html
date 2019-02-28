@@ -18,4 +18,13 @@
             </div>
         </div>
     </div>
+    <div *ngIf="hasImage()" class="row">
+        <div class="col-12">
+            <div class="form-group">
+              <label for="mount_point">Mount Point</label>
+              <input class="form-control" aria-describedby="mountPointHelp" #text type="text" [formControl]="mountPoint" />
+              <small *ngIf="image == null" id="mountPointHelp" class="form-text text-muted">Create a mount point for a volume on your image.</small>
+            </div>
+        </div>
+    </div>
 </app-main>
