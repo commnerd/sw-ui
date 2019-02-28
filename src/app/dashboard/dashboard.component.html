@@ -1,10 +1,21 @@
 <app-main>
-    <div class="form-group">
-      <label for="image">Image</label>
-      <select class="form-control" id="image" aria-describedby="imageHelp" [formControl]="image" (change)="requestImage()">
-          <option>--Please select an image--</option>
-          <option value="debian">Debian</option>
-      </select>
-      <small *ngIf="image == null" id="imageHelp" class="form-text text-muted">Please select an image.</small>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+              <label for="image">Image</label>
+              <select class="form-control" aria-describedby="imageSelectHelp" [formControl]="imageSelect" #select (change)="requestImage(select.value)">
+                  <option>--Please select an image--</option>
+                  <option *ngFor="let image of images | keyvalue" [value]="image.key">{{ image.value }}</option>
+              </select>
+              <small *ngIf="image == null" id="imageSelectHelp" class="form-text text-muted">Please select an image.</small>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+              <label for="image">Image</label>
+              <input class="form-control" aria-describedby="imageTextHelp" #text type="text" [formControl]="imageText" (blur)="requestImage(text.value)">
+              <small *ngIf="image == null" id="imageTextHelp" class="form-text text-muted">Please type an image name if not in list.</small>
+            </div>
+        </div>
     </div>
 </app-main>

@@ -10,25 +10,47 @@ import { Instance } from '../models/instance'
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  image = new FormControl('')
-  instance: Instance = null;
+  imageSelect = new FormControl('')
+  imageText = new FormControl('')
 
-  constructor(private _instanceService: InstanceService) { }
+  instance: Instance = null
+  images: Object
+
+  constructor(private _instanceService: InstanceService) {
+      this.images = {
+          "debian": "Debian",
+          "nginx": "Nginx",
+      }
+  }
 
   ngOnInit() {
       this._instanceService.get().subscribe(
           (instance: Instance) => {
               this.instance = instance
+              this.setImageValues(this.instance.image)
           }
       )
   }
 
-  requestImage() {
-      this._instanceService.create(this.image.value).subscribe(
+  requestImage(image) {
+      this.setImageValues(image)
+
+      this._instanceService.create(image).subscribe(
           (instance: Instance) => {
               this.instance = instance
+              this.setImageValues(this.instance.image)
           }
       )
+  }
+
+  setImageValues(image) {
+      this.imageSelect.setValue("")
+      this.imageText.setValue(image)
+
+      if(image == undefined || this.images[image] != undefined) {
+          this.imageSelect.setValue(image)
+          this.imageText.setValue("")
+      }
   }
 
 }
