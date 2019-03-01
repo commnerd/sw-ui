@@ -4,6 +4,8 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
         apt-utils \
+        apt-transport-https \
+        lsb-release \
         git \
         software-properties-common \
         supervisor \
@@ -19,7 +21,8 @@ RUN apt-get update && \
         gnupg2 \
         software-properties-common \
         openssh-server \
-        zip
+        zip \
+        wget
 
 RUN sed -i 's/^%.*ALL=(ALL:ALL) ALL/%sudo   ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 
@@ -43,7 +46,7 @@ RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker -p '$1$ohKHD8s/$uWgvbSJCBL7I
     echo "password changeme" >> /home/commnerd/.netrc && \
     chmod 600 /home/commnerd/.netrc && \
     chown commnerd:commnerd /home/commnerd/.netrc && \
-    echo "if [ \"$(cat /home/commnerd/.netrc | grep changeme)\" ]; then echo \"\033[1;33mYou will need to add your password to ~/.netrc to use git without authentication harassment.\033[0m\"; fi" >> /home/commnerd/.bashrc
+    echo "if [ \"\$(cat /home/commnerd/.netrc | grep changeme)\" ]; then printf \"\\033[1;33mYou will need to add your password to ~/.netrc to use git without authentication harassment.\\033[0m\\n\"; fi" >> /home/commnerd/.bashrc
     
 
 RUN sudo -u commnerd git clone https://github.com/commnerd/GIT.git /home/commnerd/.git

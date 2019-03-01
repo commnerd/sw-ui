@@ -1,9 +1,17 @@
 FROM commnerd/workspace
 
-RUN apt-get update && \
+RUN sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
+    sudo sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' && \
+    apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-        php-sqlite3 \
+	php7.2 \
+        php7.2-common \
+        php7.2-cli \
+        php7.2-fpm \
+        php7.2-sqlite \
+        php7.2-mysql \
+        php7.2-mbstring \
         phpunit
 
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
