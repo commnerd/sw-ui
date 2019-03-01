@@ -13,7 +13,7 @@
         <div class="col-6">
             <div class="form-group">
               <label for="image">Image</label>
-              <input class="form-control" aria-describedby="imageTextHelp" #text type="text" [formControl]="imageText" (blur)="requestImage(text.value)">
+              <input class="form-control" aria-describedby="imageTextHelp" #text type="text" [formControl]="imageText" (keyup)="requestImageOnEnter($event)">
               <small *ngIf="image == null" id="imageTextHelp" class="form-text text-muted">Please type an image name if not in list.</small>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="col-12">
             <div class="form-group">
               <label for="mount_point">Mount Point</label>
-              <input class="form-control" aria-describedby="mountPointHelp" #text type="text" [formControl]="mountPoint" />
+              <input class="form-control" aria-describedby="mountPointHelp" #text type="text" [formControl]="mountPoint" (keyup)="requestMountPointVolumeOnEnter($event)" />
               <small *ngIf="image == null" id="mountPointHelp" class="form-text text-muted">Create a mount point for a volume on your image.</small>
             </div>
         </div>

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 
 import { InstanceService } from '../services/instance.service'
+import { VolumesService } from '../services/volume.service'
+
 import { Instance } from '../models/instance'
+import { Volume } from '../models/volume'
 
 @Component({
   selector: 'app-dashboard',
@@ -44,7 +47,16 @@ export class DashboardComponent implements OnInit {
       )
   }
 
-  setImageValues(image) {
+  requestMountPointVolume(mountPoint: string) {
+      this._volumeService.create().subscribe(
+          (instance: Instance) => {
+              this.instance = instance
+              this.setImageValues(this.instance.image)
+          }
+      )
+  }
+
+  setImageValues(image: string) {
       this.imageSelect.setValue("")
       this.imageText.setValue(image)
 
@@ -54,7 +66,22 @@ export class DashboardComponent implements OnInit {
       }
   }
 
+  requestMountPointVolumeOnEnter(event: KeyboardEvent) {
+      if(event.key === "Enter") {
+          this.requestImage(this.mountPoint.value)
+      }
+  }
+
+  requestImageOnEnter(event: KeyboardEvent) {
+      if(event.key === "Enter") {
+          this.requestMountPoint(this.imageText.value)
+      }
+  }
+
   hasImage(): bool {
+      if(this.instance == null) {
+          return false;
+      }
       return true;
   }
 

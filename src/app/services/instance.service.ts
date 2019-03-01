@@ -8,8 +8,6 @@ import { Observable } from 'rxjs'
 })
 export class InstanceService {
 
-  instance: {}
-
   constructor(private _http: HttpClient) { }
 
   get(): Observable<Object> {
