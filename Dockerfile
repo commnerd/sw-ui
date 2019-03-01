@@ -4,6 +4,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
         apt-utils \
+        git \
         software-properties-common \
         supervisor \
         nginx \
@@ -17,7 +18,8 @@ RUN apt-get update && \
         curl \
         gnupg2 \
         software-properties-common \
-        openssh-server
+        openssh-server \
+        zip
 
 RUN sed -i 's/^%.*ALL=(ALL:ALL) ALL/%sudo   ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 
@@ -34,7 +36,17 @@ RUN useradd -s /bin/bash -mu1000 -Groot,sudo,docker -p '$1$ohKHD8s/$uWgvbSJCBL7I
     echo "fi" >> /home/commnerd/.bashrc && \
     echo "sudo chown -fR commnerd:commnerd /home/commnerd/.ssh" >> /home/commnerd/.bashrc && \
     echo "sudo chmod 400 /home/commnerd/.ssh/*sa" >> /home/commnerd/.bashrc && \
-    echo "alias mike='ssh ubuntu@michaeljmiller.net'" >> /home/commnerd/.bashrc
+    echo "alias mike='ssh ubuntu@michaeljmiller.net'" >> /home/commnerd/.bashrc && \
+    echo "export PATH=~/.git/dev_env/bin:$PATH" >> /home/commnerd/.bashrc && \
+    echo "machine github.com" > /home/commnerd/.netrc && \
+    echo "login commnerd" >> /home/commnerd/.netrc && \
+    echo "password changeme" >> /home/commnerd/.netrc && \
+    chmod 600 /home/commnerd/.netrc && \
+    chown commnerd:commnerd /home/commnerd/.netrc && \
+    echo "if [ \"$(cat /home/commnerd/.netrc | grep changeme)\" ]; then echo \"\033[1;33mYou will need to add your password to ~/.netrc to use git without authentication harassment.\033[0m\"; fi" >> /home/commnerd/.bashrc
+    
+
+RUN sudo -u commnerd git clone https://github.com/commnerd/GIT.git /home/commnerd/.git
 
 RUN mkdir /run/sshd
 
