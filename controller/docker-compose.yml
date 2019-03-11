@@ -1,0 +1,17 @@
+version: "2"
+services:
+  backend:
+    image: golang
+    volumes:
+      - ~/.go:/go
+      - ./backend:/go/src/github.com/commnerd/docker-workspace/controller/backend
+    working_dir: /go/src/github.com/commnerd/docker-workspace/controller/backend
+    environment:
+      - CGO_ENABLED=0
+    command: bash -c "go get -d && go build -tags netgo -a -o workspace-controller"
+  ui:
+    image: node
+    volumes:
+      - ./ui:/app
+    working_dir: /app
+    command: bash -c "yarn global add @angular/cli && yarn install && ng serve"

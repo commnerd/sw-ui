@@ -1,3 +1,24 @@
+FROM golang AS controller_backend_builder
+
+ADD controller/backend /go/src/github.com/commnerd/docker-workspace/controller/backend
+
+WORKDIR /go/src/github.com/commnerd/docker-workspace/controller/backend
+
+ENV CGO_ENABLED=0 
+
+RUN go get -d && go build -tags netgo -a -o /go/bin/workspace-controller
+
+
+FROM node AS controller_ui_builder
+
+ADD controller/ui /app
+
+WORKDIR /app
+
+RUN yarn global add @angular/cli && \
+    yarn install && \
+    ng build --prod
+
 FROM debian
 
 RUN apt-get update && \
@@ -23,6 +44,9 @@ RUN apt-get update && \
         openssh-server \
         zip \
         wget
+
+COPY --from=controller_backend_builder /go/bin/workspace-controller /usr/sbin
+COPY --from=controller_ui_builder /app/dist/ui/* /var/www/html/
 
 RUN sed -i 's/^%.*ALL=(ALL:ALL) ALL/%sudo   ALL=(ALL) NOPASSWD: ALL/g' /etc/sudoers
 
@@ -58,6 +82,7 @@ VOLUME ["/home/commnerd/Workspace", "/root/.ssh", "/var/lib/docker"]
 RUN sudo -u commnerd git config --global user.name "Michael J. Miller" && sudo -u commnerd git config --global user.email "commnerd@gmail.com"
 
 ADD configs/supervisor/conf.d/* /etc/supervisor/conf.d/
+ADD configs/nginx/sites-available/default /root/.nginx.default.template
 
 EXPOSE 80
 
