@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 
 import { InstanceService } from '../services/instance.service'
-import { VolumesService } from '../services/volume.service'
+import { VolumeService } from '../services/volume.service'
 
 import { Instance } from '../models/instance'
 import { Volume } from '../models/volume'
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   instance: Instance = null
   images: Object
 
-  constructor(private _instanceService: InstanceService) {
+  constructor(private _instanceService: InstanceService, private _volumeService: VolumeService) {
       this.images = {
           "debian": "Debian",
           "nginx": "Nginx",
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
   }
 
   requestMountPointVolume(mountPoint: string) {
-      this._volumeService.create().subscribe(
+      this._volumeService.create(this.instance, mountPoint).subscribe(
           (instance: Instance) => {
               this.instance = instance
               this.setImageValues(this.instance.image)
@@ -74,11 +74,11 @@ export class DashboardComponent implements OnInit {
 
   requestImageOnEnter(event: KeyboardEvent) {
       if(event.key === "Enter") {
-          this.requestMountPoint(this.imageText.value)
+          this.requestMountPointVolume(this.imageText.value)
       }
   }
 
-  hasImage(): bool {
+  hasImage(): boolean {
       if(this.instance == null) {
           return false;
       }

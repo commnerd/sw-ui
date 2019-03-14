@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 
+import { Instance } from '../models/instance'
 import { Observable } from 'rxjs'
 
 @Injectable({
@@ -13,7 +14,7 @@ export class VolumeService {
          return this._http.get('http://localhost:8000/api/v1/volumes')
     }
 
-    create(instance: string, mountPoint: string): Observable<Object> {
+    create(instance: Instance, mountPoint: string): Observable<Object> {
         return this._http.post('http://localhost:8000/api/v1/volumes/create', {
             instance: instance,
             mountPoint: mountPoint,
