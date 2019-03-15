@@ -3,8 +3,6 @@ services:
   workspace:
     image: node
     working_dir: /app
-    ports:
-      - ${HOST_PORT}:4200
     volumes:
       - .:/app
-    command: bash -c "yarn global add @angular/cli && yarn && ng serve"
+    command: bash -c "yarn global add @angular/cli && yarn && ng build --watch --poll 5 --base-href=/sw"
