@@ -1,6 +1,5 @@
-export class Volume
-{
-    id: number
+export class Volume {
+    id: string
     name: string
-    mountPoint: string
+    image: string
 }
