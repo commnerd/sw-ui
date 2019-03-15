@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { FormBuilder } from '@angular/forms'
 
 import { InstanceService } from '../services/instance.service'
 import { VolumeService } from '../services/volume.service'
+import { NodeService } from '../services/node.service'
+
 
 import { Instance } from '../models/instance'
 import { Volume } from '../models/volume'
@@ -13,21 +15,28 @@ import { Volume } from '../models/volume'
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  imageSelect = new FormControl('')
-  imageText = new FormControl('')
-  mountPoint = new FormControl('')
+  form = this._fb.group({
+      "imageSelect": [''],
+      "imageText": [''],
+      "mountPoint": [''],
+  });
 
   instance: Instance = null
+  volume: Volume = null
   images: Object
 
-  constructor(private _instanceService: InstanceService, private _volumeService: VolumeService) {
+  constructor(
+      private _fb: FormBuilder,
+      private _instanceService: InstanceService,
+      private _volumeService: VolumeService,
+      private _nodeService: NodeService,
+  ) {}
+
+  ngOnInit() {
       this.images = {
           "debian": "Debian",
           "nginx": "Nginx",
       }
-  }
-
-  ngOnInit() {
       this._instanceService.get().subscribe(
           (instance: Instance) => {
               this.instance = instance
@@ -49,32 +58,32 @@ export class DashboardComponent implements OnInit {
 
   requestMountPointVolume(mountPoint: string) {
       this._volumeService.create(this.instance, mountPoint).subscribe(
-          (instance: Instance) => {
-              this.instance = instance
+          (volume: Volume) => {
+              this.volume = volume
               this.setImageValues(this.instance.image)
           }
       )
   }
 
   setImageValues(image: string) {
-      this.imageSelect.setValue("")
-      this.imageText.setValue(image)
+      this.form.get("imageSelect").setValue("")
+      this.form.get("imageText").setValue(image)
 
       if(image == undefined || this.images[image] != undefined) {
-          this.imageSelect.setValue(image)
-          this.imageText.setValue("")
+          this.form.get("imageSelect").setValue(image)
+          this.form.get("imageText").setValue("")
       }
   }
 
   requestMountPointVolumeOnEnter(event: KeyboardEvent) {
       if(event.key === "Enter") {
-          this.requestImage(this.mountPoint.value)
+          this.requestImage(this.form.get("mountPoint").value)
       }
   }
 
   requestImageOnEnter(event: KeyboardEvent) {
       if(event.key === "Enter") {
-          this.requestMountPointVolume(this.imageText.value)
+          this.requestMountPointVolume(this.form.get("imageText").value)
       }
   }
 
