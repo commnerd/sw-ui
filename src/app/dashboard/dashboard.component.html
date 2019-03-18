@@ -1,32 +1,14 @@
-<app-main>
-    <form [formGroup]="form">
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                  <label for="image">Image</label>
-                  <select class="form-control" aria-describedby="imageSelectHelp" [formControl]="imageSelect" #select (change)="requestImage(select.value)">
-                      <option>--Please select an image--</option>
-                      <option *ngFor="let image of images | keyvalue" [value]="image.key">{{ image.value }}</option>
-                  </select>
-                  <small *ngIf="image == null" id="imageSelectHelp" class="form-text text-muted">Please select an image.</small>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                  <label for="image">Image</label>
-                  <input class="form-control" aria-describedby="imageTextHelp" #text type="text" [formControl]="imageText" (keyup)="requestImageOnEnter($event)">
-                  <small *ngIf="image == null" id="imageTextHelp" class="form-text text-muted">Please type an image name if not in list.</small>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="hasImage()" class="row">
-            <div class="col-12">
-                <div class="form-group">
-                  <label for="mount_point">Mount Point</label>
-                  <input class="form-control" aria-describedby="mountPointHelp" #text type="text" [formControl]="mountPoint" (keyup)="requestMountPointVolumeOnEnter($event)" />
-                  <small *ngIf="image == null" id="mountPointHelp" class="form-text text-muted">Create a mount point for a volume on your image.</small>
-                </div>
-            </div>
-        </div>
-    </form>
-</app-main>
+<h1>Node</h1>
+<div class="row">
+    <div class="col-4">
+        <h4>Role</h4>
+        {{ node.role }}
+    </div>
+    <div class="col-4">
+        <h4>Address/Port</h4>
+        {{ node.address }}:{{ node.api.host_port }}</div>
+    <div class="col-4">
+        <h4>Base Path</h4>
+        {{ node.api.base_path }}
+    </div>
+</div>
