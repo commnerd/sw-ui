@@ -11,22 +11,34 @@ import { Node } from '../models/node'
 })
 export class NodeService {
 
-    private _node: BehaviorSubject<Node>
+    private _node: BehaviorSubject<Node> = new BehaviorSubject<Node>({
+        id: null,
+        address: null,
+        api: {
+            base_path: null,
+            domain: null,
+            host_port: null,
+        },
+        host: null,
+        role: null,
+        services: [],
+        version: null
+    })
 
     constructor(
         private _http: HttpClient,
         private _portService: PortService
     ) {
         _portService.getPort().subscribe(
-            newPort => _http.get(`http://localhost:${newPort}/node`).subscribe(
-                (newNode as Node) => {
-                    this._node.next(newNode)
-                }
-            )
+            newPort => {
+                this._http.get(`http://localhost:${newPort}/node`).subscribe(
+                    newNode => this._node.next(newNode as Node)
+                )
+            }
         )
     }
 
-    get(): Observable<Node> {
+    getNode(): Observable<Node> {
          return this._node
     }
 }

@@ -11,12 +11,12 @@ import { Node } from '../models/node'
 export class DashboardComponent implements OnInit {
   node: Node
 
-  constructor(private _nodeService: NodeService) { }
+  constructor(private _nodeService: NodeService) {}
 
   ngOnInit() {
-     this._nodeService.get().subscribe(
+     this._nodeService.getNode().subscribe(
          node => {
-             this.node = node
+            this.node = node
          }
      )
   }

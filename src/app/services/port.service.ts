@@ -8,10 +8,14 @@ export class PortService {
   private _port: BehaviorSubject<number>
 
   constructor() {
-      this._port = new BehaviorSubject(93)
+      this._port = new BehaviorSubject<number>(93)
   }
 
   getPort(): Observable<number> {
-      return this._port
+    return this._port
+  }
+
+  setPort(port: number) {
+  	this._port.next(port)
   }
 }
