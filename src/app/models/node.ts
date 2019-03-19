@@ -1,3 +1,5 @@
+import { Api } from './api'
+
 export class Node {
     id: string
     address: string
