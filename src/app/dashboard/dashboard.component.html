@@ -1,14 +1,32 @@
-<h1>Node</h1>
-<div class="row">
-    <div class="col-4">
-        <h4>Role</h4>
-        {{ node.role }}
+<div>
+    <h2>Node</h2>
+    <div class="row">
+        <div class="col-4">
+            <h4>Role</h4>
+            {{ node.role }}
+        </div>
+        <div class="col-4">
+            <h4>Address/Port</h4>
+            {{ node.address }}:{{ node.api.host_port }}</div>
+        <div class="col-4">
+            <h4>Base Path</h4>
+            {{ node.api.base_path }}
+        </div>
     </div>
-    <div class="col-4">
-        <h4>Address/Port</h4>
-        {{ node.address }}:{{ node.api.host_port }}</div>
-    <div class="col-4">
-        <h4>Base Path</h4>
-        {{ node.api.base_path }}
+</div>
+<div *ngIf="node.role != 'root'">
+    <h2>Host</h2>
+    <div class="row">
+        <div class="col-4">
+            <h4>Role</h4>
+            {{ node.host.role }}
+        </div>
+        <div class="col-4">
+            <h4>Address/Port</h4>
+            {{ node.host.address }}:{{ node.host.api.host_port }}</div>
+        <div class="col-4">
+            <h4>Base Path</h4>
+            {{ node.host.api.base_path }}
+        </div>
     </div>
 </div>
